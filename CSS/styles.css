@@ -1,0 +1,64 @@
+* {
+  box-sizing: border-box;
+  justify-content: center;
+}
+
+section {
+  font-size: 300px;
+  size: 300px;
+
+}
+
+title {
+  font-size: large;
+
+}
+
+
+h1 {
+  font-size: 100px;
+  margin: auto;
+
+}
+
+img#img-one {
+  width: 250px;
+  margin: auto;
+
+}
+
+img#img-two {
+  width: 250px;
+  margin: auto;
+  padding: auto;
+
+}
+
+img#img-three {
+  width: 250px;
+  margin: auto;
+
+}
+
+
+
+
+ul {
+  font-size: larger;
+
+}
+
+
+p {
+  font-size: 1vw;
+  word-wrap: normal;
+
+}
+
+footer {
+  color: black;
+  font-size: 2vh;
+  padding: 30px
+}
+
+*/
