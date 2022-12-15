@@ -28,7 +28,6 @@ let watercan = new Product('watercan', 'jpg');
 let wineglass = new Product('wineglass', 'jpg');
 let productArray = [bag, banana, bathroom, boots, breakfast, bubblegum, chair, cthulhu, dogduck, dragon, pen, petsweep, scissors, shark, sweep, tauntaun, unicorn, watercan, wineglass];
 
-
 //  ************** DOM WINDOWS ******************
 
 let imgContainer = document.getElementById("img-container");
@@ -55,12 +54,10 @@ function Product(name, imgExtension = 'jpg') {
 
 }
 
-
 // ********************** HELPER FUNCTIONS / UTILITIES **
 
 function randomIndex() {
   return Math.floor(Math.random() * productArray.length);
-
 }
 
 function renderImage() {
@@ -94,19 +91,17 @@ renderImage();
 
 //****************************RENDER CHART */
 
-let productNames = [];
-let productVotes = [];
-let productViews = [];
-
-for (let i = 0; i < productArray.length; i++) {
-  productNames.push(productArray[i].name);
-  productVotes.push(productArray[i].votes);
-  productViews.push(productArray[i].views);
-}
-
-
-
 function renderChart() {
+  let productNames = [];
+  let productVotes = [];
+  let productViews = [];
+  for (let i = 0; i < productArray.length; i++) {
+    productNames.push(productArray[i].name);
+    productVotes.push(productArray[i].votes);
+    productViews.push(productArray[i].views);
+  }
+
+
   let chartObj = {
     type: 'bar',
     data: {
@@ -147,41 +142,88 @@ function handleClick(event) {
     }
   }
 
+
+
   votingRounds--;
 
   renderImage();
 
   if (votingRounds === 0) {
+    // document.querySelector('h3').style.visibility = 'visible';
     imgContainer.removeEventListener('click', handleClick);
+
+    // ****** LOCAL STORAGE STARTS HERE ******
+    // ! STEP 1 - STRINGIFY DATA FOR LOCAL STORAGE
+    let stringifiedProducts = JSON.stringify(productArray);
+
+    console.log('Stringified Products', stringifiedProducts);
+
+    // ! STEP 2 - SET TO LOCAL STORAGE
+    localStorage.setItem('myProducts', stringifiedProducts);
   }
 }
+
 
 function handleShowResults() {
   if (votingRounds === 0) {
     // imgContainer.removeEventListener('click', handleClick);
     renderChart();
   }
-
-  if (votingRounds === 0) {
-    for (let i = 0; i < productArray.length; i++) {
-      let liElem = document.createElement('li');
-      liElem.textContent = `${productArray[i].name} - views: ${productArray[i].views} & votes: ${productArray[i].votes}`;
-      resultsList.appendChild(liElem);
-    }
-    resultsBtn.removeEventListener('click', handleShowResults);
-  }
 }
 
+if (votingRounds === 0) {
+  for (let i = 0; i < productArray.length; i++) {
+    let liElem = document.createElement('li');
+    liElem.textContent = `${productArray[i].name} - views: ${productArray[i].views} & votes: ${productArray[i].votes}`;
+    resultsList.appendChild(liElem);
+  }
+}
+resultsBtn.removeEventListener('click', handleShowResults);
 
 
-// handleClick();
-
-// handleShowResults();
 
 
-// *************** EXECUTABLE CODE **************
+
+//****************************MORE LOCAL STORAGE DEMO */
+
+// ! STEP 3 - PULL DATA FROM LOCAL STORAGE
+
+let retreivedProducts = localStorage.getItem('myProducts');
+
+console.log('retreived Products>>>', retreivedProducts);
+
+// ! STEP 4 - PARSE OUR LOCAL STORAGE DATA
+
+let parsedProducts = JSON.parse(retreivedProducts);
+
+console.log('parsed Products >>> ', parsedProducts);
 
 
+if (retreivedProducts) {
+  productArray = parsedProducts;
+} else {
+  let bag = new Product('bag', 'jpg');
+  let banana = new Product('banana', 'jpg');
+  let bathroom = new Product('bathroom', 'jpg');
+  let boots = new Product('boots', 'jpg');
+  let breakfast = new Product('breakfast', 'jpg');
+  let bubblegum = new Product('bubblegum', 'jpg');
+  let chair = new Product('chair', 'jpg');
+  let cthulhu = new Product('cthulhu', 'jpg');
+  let dogduck = new Product('dogduck', 'jpg');
+  let dragon = new Product('dragon', 'jpg');
+  let pen = new Product('pen', 'jpg');
+  let petsweep = new Product('petsweep', 'jpg');
+  let scissors = new Product('scissors', 'jpg');
+  let shark = new Product('shark', 'jpg');
+  let sweep = new Product('sweep', 'png');
+  let tauntaun = new Product('tauntaun', 'jpg');
+  let unicorn = new Product('unicorn', 'jpg');
+  let watercan = new Product('watercan', 'jpg');
+  let wineglass = new Product('wineglass', 'jpg');
+
+  productArray.push(bag, banana, bathroom, boots, breakfast, bubblegum, chair, cthulhu, dogduck, dragon, pen, petsweep, scissors, shark, sweep, tauntaun, unicorn, watercan, wineglass);
+}
 
 
 //*********************************PRODUCT ARRAY********************** */
